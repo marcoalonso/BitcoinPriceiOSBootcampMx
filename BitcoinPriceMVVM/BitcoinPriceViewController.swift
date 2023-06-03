@@ -75,6 +75,8 @@ class BitcoinPriceViewController: UIViewController {
         return imageView
     }()
     
+    //Crear un label para mostrar si hay un error del viewModel
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -107,7 +109,6 @@ class BitcoinPriceViewController: UIViewController {
 //            .assign(to: \UILabel.text!, on: labelDate)
 //            .store(in: &cancellables)
         
-        // *-------------*
         
         ///Se crea el binding para escuchar cuando cambia el valor de $bitcoinPrice y poder actualizar la vista
         // Opcion 2
@@ -169,15 +170,18 @@ extension BitcoinPriceViewController: UIPickerViewDelegate, UIPickerViewDataSour
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 10
+        return bitcoinViewModel.exchangeRate.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "MXN"
+        return bitcoinViewModel.exchangeRate[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(row)
+        print(bitcoinViewModel.exchangeRate[row])
+        
+        let currency = bitcoinViewModel.exchangeRate[row]
+        getPrice(wit: currency)
     }
     
     
