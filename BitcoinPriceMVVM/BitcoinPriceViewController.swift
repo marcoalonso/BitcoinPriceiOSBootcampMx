@@ -72,6 +72,9 @@ class BitcoinPriceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currencyPickerView.delegate = self
+        currencyPickerView.dataSource = self
+        
         configurarElementos()
     }
     
@@ -115,6 +118,27 @@ class BitcoinPriceViewController: UIViewController {
 
 }
 
+extension BitcoinPriceViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 10
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "MXN"
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(row)
+    }
+    
+    
+}
+
+// MARK:  Preview
 struct ViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = BitcoinPriceViewController
     
@@ -132,4 +156,6 @@ struct ViewController_Previews: PreviewProvider {
         ViewControllerRepresentable()
     }
 }
+
+
 
