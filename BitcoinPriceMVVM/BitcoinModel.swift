@@ -8,6 +8,6 @@
 import Foundation
 
 struct BitcoinModel: Codable {
-    let price: String
+    let time: String
     let rate: Double
 }

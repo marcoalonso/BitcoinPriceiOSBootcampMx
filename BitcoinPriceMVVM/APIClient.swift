@@ -32,7 +32,7 @@ public class APIClient {
                     print("Debug: error \(error.localizedDescription)")
                     completion(nil, error)
                 }
-            }
+            }.resume()
         }
     }
 }
