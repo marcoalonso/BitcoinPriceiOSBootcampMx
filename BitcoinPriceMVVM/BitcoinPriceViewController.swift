@@ -60,6 +60,14 @@ class BitcoinPriceViewController: UIViewController {
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
+    
+    private var bitcoinImage: UIImageView = {
+       let imageView = UIImageView()
+        imageView.image = UIImage(named: "bitcoin")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +84,8 @@ class BitcoinPriceViewController: UIViewController {
         view.addSubview(labelPrice)
         view.addSubview(labelDate)
         view.addSubview(currencyPickerView)
+        view.addSubview(bitcoinImage)
+        
         ///Constraints
         NSLayoutConstraint.activate([
             labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -96,6 +106,10 @@ class BitcoinPriceViewController: UIViewController {
             currencyPickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             currencyPickerView.topAnchor.constraint(equalTo: labelDate.bottomAnchor, constant: 20),
             currencyPickerView.heightAnchor.constraint(equalToConstant: 120),
+            
+            bitcoinImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            bitcoinImage.topAnchor.constraint(equalTo: currencyPickerView.bottomAnchor, constant: 20),
+            bitcoinImage.heightAnchor.constraint(equalToConstant: 150)
         ])
     }
 
