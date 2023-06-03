@@ -29,6 +29,17 @@ class BitcoinPriceViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let labelPrice: UILabel = {
+       let label = UILabel()
+        label.text = "$123456.7"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 50, weight: .bold, width: .standard)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +53,7 @@ class BitcoinPriceViewController: UIViewController {
         view.layer.addSublayer(gradientLayer)
         
         view.addSubview(labelTitle)
+        view.addSubview(labelPrice)
         
         ///Constraints
         NSLayoutConstraint.activate([
@@ -51,6 +63,12 @@ class BitcoinPriceViewController: UIViewController {
             labelTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             labelTitle.heightAnchor.constraint(equalToConstant: 60),
             
+            
+            labelPrice.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            labelPrice.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: 30),
+            labelPrice.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            labelPrice.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            labelPrice.heightAnchor.constraint(equalToConstant: 60),
             
         ])
     }
