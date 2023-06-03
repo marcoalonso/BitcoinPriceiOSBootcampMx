@@ -18,6 +18,17 @@ class BitcoinPriceViewController: UIViewController {
         
         return gradientLayer
     }()
+    
+    private let labelTitle: UILabel = {
+       let label = UILabel()
+        label.text = "Bitcoin Price"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 40, weight: .semibold, width: .standard)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +40,19 @@ class BitcoinPriceViewController: UIViewController {
     private func configurarElementos(){
         gradientLayer.frame = view.bounds
         view.layer.addSublayer(gradientLayer)
+        
+        view.addSubview(labelTitle)
+        
+        ///Constraints
+        NSLayoutConstraint.activate([
+            labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            labelTitle.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            labelTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            labelTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            labelTitle.heightAnchor.constraint(equalToConstant: 60),
+            
+            
+        ])
     }
 
 }
