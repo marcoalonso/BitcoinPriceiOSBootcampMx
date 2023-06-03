@@ -51,6 +51,15 @@ class BitcoinPriceViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let currencyPickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.layer.cornerRadius = 15
+        picker.layer.borderWidth = 1
+        picker.layer.borderColor = UIColor.white.cgColor
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        return picker
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +75,7 @@ class BitcoinPriceViewController: UIViewController {
         view.addSubview(labelTitle)
         view.addSubview(labelPrice)
         view.addSubview(labelDate)
-        
+        view.addSubview(currencyPickerView)
         ///Constraints
         NSLayoutConstraint.activate([
             labelTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -83,6 +92,10 @@ class BitcoinPriceViewController: UIViewController {
             
             labelDate.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             labelDate.topAnchor.constraint(equalTo: labelPrice.bottomAnchor, constant: 20),
+            
+            currencyPickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currencyPickerView.topAnchor.constraint(equalTo: labelDate.bottomAnchor, constant: 20),
+            currencyPickerView.heightAnchor.constraint(equalToConstant: 120),
         ])
     }
 
