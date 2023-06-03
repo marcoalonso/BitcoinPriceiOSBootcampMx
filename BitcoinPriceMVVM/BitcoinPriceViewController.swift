@@ -7,8 +7,14 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 class BitcoinPriceViewController: UIViewController {
+    
+    private let bitcoinViewModel = BitcoinViewModel(apiclient: APIClient.shared)
+    
+    ///Guardar informacion (bindings del viewModel)
+    var cancellables = Set<AnyCancellable>()
     
     private let gradientLayer : CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
@@ -20,7 +26,7 @@ class BitcoinPriceViewController: UIViewController {
     }()
     
     private let labelTitle: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Bitcoin Price"
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -31,7 +37,7 @@ class BitcoinPriceViewController: UIViewController {
     }()
     
     private let labelPrice: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "$123456.7"
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -42,7 +48,7 @@ class BitcoinPriceViewController: UIViewController {
     }()
     
     private let labelDate: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "03 Jun 2023"
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -62,13 +68,13 @@ class BitcoinPriceViewController: UIViewController {
     }()
     
     private var bitcoinImage: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.image = UIImage(named: "bitcoin")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,6 +82,45 @@ class BitcoinPriceViewController: UIViewController {
         currencyPickerView.dataSource = self
         
         configurarElementos()
+        
+        createBindingsWithViewModel()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getPrice(wit: bitcoinViewModel.exchangeRate.first ?? "MXN")
+    }
+    
+    private func getPrice(wit currency: String) {
+        bitcoinViewModel.getPrice(with: currency)
+    }
+    
+    ///DataBindings (Tuberias)
+    private func createBindingsWithViewModel() {
+        ///Se crea un binding del viewModel hacia el labelPrice -> bitcoinPrice
+        // Opcion 1
+//        bitcoinViewModel.$bitcoinPrice
+//            .assign(to: \UILabel.text!, on: labelPrice)
+//            .store(in: &cancellables)
+//
+//        ///Se crea un binding de la propiedad dateLastPrice para mostrar label con la fecha
+//        bitcoinViewModel.$dateLastPrice
+//            .assign(to: \UILabel.text!, on: labelDate)
+//            .store(in: &cancellables)
+        
+        // *-------------*
+        
+        ///Se crea el binding para escuchar cuando cambia el valor de $bitcoinPrice y poder actualizar la vista
+        // Opcion 2
+        bitcoinViewModel.$bitcoinPrice.sink { price in
+            print("price: \(price)")
+            self.labelPrice.text = price
+        }.store(in: &cancellables)
+        
+        
+        bitcoinViewModel.$dateLastPrice.sink { date in
+            print("price: \(date)")
+            self.labelDate.text = date
+        }.store(in: &cancellables)
     }
     
     ///Agregando los elemento a la vista, constraints

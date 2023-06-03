@@ -9,9 +9,9 @@ import Foundation
 import Combine
 
 class BitcoinViewModel {
-    @Published var bitcoinPrice = "0.0"
+    @Published var bitcoinPrice = "$0.0"
     @Published var showLoading = false
-    @Published var dateLastPrice = ""
+    @Published var dateLastPrice = "\(Date.now)"
     
     var exchangeRate = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     
