@@ -40,6 +40,17 @@ class BitcoinPriceViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private let labelDate: UILabel = {
+       let label = UILabel()
+        label.text = "03 Jun 2023"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .regular, width: .standard)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +65,7 @@ class BitcoinPriceViewController: UIViewController {
         
         view.addSubview(labelTitle)
         view.addSubview(labelPrice)
+        view.addSubview(labelDate)
         
         ///Constraints
         NSLayoutConstraint.activate([
@@ -63,13 +75,14 @@ class BitcoinPriceViewController: UIViewController {
             labelTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             labelTitle.heightAnchor.constraint(equalToConstant: 60),
             
-            
             labelPrice.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             labelPrice.topAnchor.constraint(equalTo: labelTitle.bottomAnchor, constant: 30),
             labelPrice.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             labelPrice.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             labelPrice.heightAnchor.constraint(equalToConstant: 60),
             
+            labelDate.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            labelDate.topAnchor.constraint(equalTo: labelPrice.bottomAnchor, constant: 20),
         ])
     }
 
